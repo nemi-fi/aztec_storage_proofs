@@ -35,12 +35,14 @@ contract StorageProof {
     #[private]
     #[view]
     fn get_note() -> pub Field {
+        let storage_var = storage.value;
+
         let mut options = NoteGetterOptions::new();
         options = options.set_limit(1);
         let (retrieved_notes, _): (BoundedVec<RetrievedNote<UintNote>, _>, _) =
-            get_notes(&mut context, storage.value.storage_slot, options);
+            get_notes(&mut context, storage_var.storage_slot, options);
         let note = retrieved_notes.get(0);
-        let note_hash = compute_note_hash_for_nullify(note, storage.value.storage_slot);
+        let note_hash = compute_note_hash_for_nullify(note, storage_var.storage_slot);
         note_hash
     }
 }
