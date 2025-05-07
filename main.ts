@@ -79,7 +79,6 @@ async function main() {
   const proof = await generateNoteInclusionProof(
     example_circuit as CompiledCircuit,
     getNoteResult.note,
-    getNoteResult.storage_slot,
     realRoot,
     {
       leafIndex: noteHashIndex,

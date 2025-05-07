@@ -6,7 +6,6 @@ import { type CompiledCircuit, Noir } from "@aztec/noir-noir_js";
 export async function generateNoteInclusionProof(
   circuit: CompiledCircuit,
   noteData: any,
-  storageSlot: bigint,
   realRoot: Fr,
   membershipWitness: Pick<
     MembershipWitness<number>,
@@ -35,7 +34,7 @@ export async function generateNoteInclusionProof(
       sibling_path: membershipWitness.siblingPath.map((p) => p.toString()),
     },
     expected_value: noteData.note.value.toString(),
-    storage_slot: storageSlot.toString(),
+    storage_slot: noteData.storage_slot.toString(),
     real_note_hash_tree_root: realRoot.toString(),
   });
   console.log("witness", witness.length);
