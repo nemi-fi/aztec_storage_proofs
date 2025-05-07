@@ -3,10 +3,10 @@ import "fake-indexeddb/auto";
 globalThis.self = globalThis; // needed by pxe https://github.com/AztecProtocol/aztec-packages/issues/14135
 
 import { getInitialTestAccountsManagers } from "@aztec/accounts/testing";
-import { createAztecNodeClient, Fr, MerkleTreeId } from "@aztec/aztec.js";
+import { createAztecNodeClient, Fr } from "@aztec/aztec.js";
 import { type CompiledCircuit } from "@aztec/noir-noir_js";
 import { createPXEService, getPXEServiceConfig } from "@aztec/pxe/client/lazy";
-import { generateNoteInclusionProof, type NoteData } from "./lib.js";
+import { generateNoteInclusionProof, getNoteHashTreeMembershipWitness, type NoteData } from "./lib.js";
 import { StorageProofContract } from "./target/StorageProof.js";
 import example_circuit from "./target_circuits/example_circuit.json" with { type: "json" };
 
@@ -24,25 +24,12 @@ async function main() {
 
   // const contract = await StorageProofContract.at(AztecAddress.fromString(), alice)
 
-  const getNoteResult = (await contract.methods.get_note().simulate()) as NoteData;
+  const noteData = (await contract.methods.get_note().simulate()) as NoteData;
 
-  const noteHash = new Fr(getNoteResult.note_hash);
+  const noteHash = new Fr(noteData.note_hash);
 
   const blockNumber = receipt.blockNumber!;
-  const [indexData] = await node.findLeavesIndexes(
-    blockNumber,
-    MerkleTreeId.NOTE_HASH_TREE,
-    [noteHash],
-  );
-  if (indexData == null) {
-    throw new Error(`note hash not found: ${noteHash}`);
-  }
-  const noteHashIndex = indexData.data;
-
-  const siblingPath = await node.getNoteHashSiblingPath(
-    blockNumber,
-    noteHashIndex,
-  );
+  const membershipWitness = await getNoteHashTreeMembershipWitness(node, blockNumber, noteHash);
 
   const blockHeader = await node.getBlockHeader(blockNumber);
   if (!blockHeader) {
@@ -50,15 +37,11 @@ async function main() {
   }
   const realRoot = blockHeader.state.partial.noteHashTree.root;
 
-
   const proof = await generateNoteInclusionProof(
     example_circuit as CompiledCircuit,
-    getNoteResult,
+    noteData,
     realRoot,
-    {
-      leafIndex: noteHashIndex,
-      siblingPath: siblingPath.toFields(),
-    },
+    membershipWitness,
   );
 }
 

@@ -1,7 +1,12 @@
-import { AztecAddress, type Fr } from "@aztec/aztec.js";
+import {
+  AztecAddress,
+  MerkleTreeId,
+  type AztecNode,
+  type Fr,
+} from "@aztec/aztec.js";
 import { UltraHonkBackend } from "@aztec/bb.js";
 import type { MembershipWitness } from "@aztec/foundation/trees";
-import { type CompiledCircuit, Noir } from "@aztec/noir-noir_js";
+import { Noir, type CompiledCircuit } from "@aztec/noir-noir_js";
 import { mapValues } from "lodash-es";
 
 export async function generateNoteInclusionProof(
@@ -55,4 +60,26 @@ export interface NoteData {
   note: any;
   note_hash: bigint;
   storage_slot: bigint;
+}
+
+export async function getNoteHashTreeMembershipWitness(
+  node: AztecNode,
+  blockNumber: number,
+  noteHash: Fr,
+): Promise<Pick<MembershipWitness<number>, "leafIndex" | "siblingPath">> {
+  const [indexData] = await node.findLeavesIndexes(
+    blockNumber,
+    MerkleTreeId.NOTE_HASH_TREE,
+    [noteHash],
+  );
+  if (indexData == null) {
+    throw new Error(`note hash not found: ${noteHash}`);
+  }
+  const noteHashIndex = indexData.data;
+
+  const siblingPath = await node.getNoteHashSiblingPath(
+    blockNumber,
+    noteHashIndex,
+  );
+  return { leafIndex: noteHashIndex, siblingPath: siblingPath.toFields() };
 }
