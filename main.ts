@@ -1,9 +1,11 @@
 import "fake-indexeddb/auto";
 // @ts-ignore
-globalThis.self = globalThis;
+globalThis.self = globalThis; // needed by pxe https://github.com/AztecProtocol/aztec-packages/issues/14135
 
 import { getInitialTestAccountsManagers } from "@aztec/accounts/testing";
 import { createAztecNodeClient, Fr, MerkleTreeId, PXE } from "@aztec/aztec.js";
+import { poseidon2Hash } from "@aztec/foundation/crypto";
+import { computeRootFromSiblingPath } from "@aztec/foundation/trees";
 import {
   createPXEService,
   getPXEServiceConfig,
@@ -25,15 +27,49 @@ async function main() {
 
   // const contract = await StorageProofContract.at(AztecAddress.fromString(), alice)
 
-  const noteHash = (await contract.methods.get_note().simulate()) as bigint;
+  const noteHash = new Fr(
+    (await contract.methods.get_note().simulate()) as bigint,
+  );
 
+  const blockNumber = receipt.blockNumber!;
   const membershipWitness = await getMembershipWitness(
     pxe,
-    receipt.blockNumber!,
-    new Fr(noteHash),
+    blockNumber,
+    noteHash,
   );
+
+  const [indexData] = await node.findLeavesIndexes(
+    blockNumber,
+    MerkleTreeId.NOTE_HASH_TREE,
+    [noteHash],
+  );
+  if (indexData == null) {
+    throw new Error(`note hash not found: ${noteHash}`);
+  }
+  const index = indexData.data;
+
+  const computedRoot = Fr.fromBuffer(
+    await computeRootFromSiblingPath(
+      noteHash.toBuffer(),
+      membershipWitness.map((x) => x.toBuffer()),
+      Number(index),
+      async (l, r) => (await poseidon2Hash([l, r])).toBuffer(),
+    ),
+  );
+  const blockHeader = await node.getBlockHeader(blockNumber);
+  if (!blockHeader) {
+    throw new Error("block not found");
+  }
+  const realRoot = blockHeader.state.partial.noteHashTree.root;
   console.log("membershipWitness", membershipWitness);
+  console.log("index", index);
   console.log("note", noteHash);
+  console.log("computed root", computedRoot);
+  console.log("real root", realRoot);
+
+  if (!realRoot.equals(computedRoot)) {
+    throw new Error("root mismatch");
+  }
 }
 
 async function getMembershipWitness(
