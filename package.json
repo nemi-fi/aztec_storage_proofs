@@ -1,9 +1,8 @@
 {
-  "name": "aztec-storage-proofs",
+  "name": "@nemi-fi/aztec-storage-proofs",
   "type": "module",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "main": "lib.ts",
   "scripts": {
     "start": "tsx main.ts",
     "compile": "rm -rf target_circuits && rm -rf target && aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec codegen target -o target",
