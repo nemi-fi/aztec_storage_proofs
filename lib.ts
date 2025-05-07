@@ -1,8 +1,8 @@
 import {
   AztecAddress,
+  Fr,
   MerkleTreeId,
   type AztecNode,
-  type Fr,
 } from "@aztec/aztec.js";
 import { UltraHonkBackend } from "@aztec/bb.js";
 import type { MembershipWitness } from "@aztec/foundation/trees";
@@ -11,13 +11,25 @@ import { mapValues } from "lodash-es";
 
 export async function generateNoteInclusionProof(
   circuit: CompiledCircuit,
+  node: AztecNode,
   noteInclusionData: NoteInclusionData,
-  realRoot: Fr,
-  membershipWitness: Pick<
-    MembershipWitness<number>,
-    "leafIndex" | "siblingPath"
-  >,
 ) {
+  // fetch data
+  const blockNumber = await node.getBlockNumber();
+  const [blockHeader, membershipWitness] = await Promise.all([
+    node.getBlockHeader(blockNumber),
+    getNoteHashTreeMembershipWitness(
+      node,
+      blockNumber,
+      new Fr(noteInclusionData.note_hash),
+    ),
+  ]);
+  if (!blockHeader) {
+    throw new Error(`block header for block ${blockNumber} not found`);
+  }
+  const realRoot = blockHeader.state.partial.noteHashTree.root;
+
+  // prove with noir & bb
   const noir = new Noir(circuit);
   const backend = new UltraHonkBackend(circuit.bytecode);
 
@@ -36,6 +48,7 @@ export async function generateNoteInclusionProof(
     }
     return v;
   });
+
   const { witness } = await noir.execute({
     note: noteForNoir,
     note_nonce,

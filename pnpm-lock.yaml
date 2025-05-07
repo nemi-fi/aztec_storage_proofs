@@ -20,6 +20,9 @@ importers:
       '@aztec/noir-noir_js':
         specifier: 0.85.0-alpha-testnet.9
         version: 0.85.0-alpha-testnet.9
+      '@aztec/stdlib':
+        specifier: 0.85.0-alpha-testnet.9
+        version: 0.85.0-alpha-testnet.9(typescript@5.8.3)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -36,6 +39,9 @@ importers:
       fake-indexeddb:
         specifier: ^6.0.0
         version: 6.0.0
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
       tsx:
         specifier: ^4.19.4
         version: 4.19.4
@@ -1448,6 +1454,11 @@ packages:
 
   pino@9.6.0:
     resolution: {integrity: sha512-i85pKRCt4qMjZ1+L7sy2Ag4t1atFcdbEt76+7iRJn1g2BvsnRMGu9p8pivl9fs63M2kF/A0OacFZhTub+m/qMg==}
+    hasBin: true
+
+  prettier@3.5.3:
+    resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
+    engines: {node: '>=14'}
     hasBin: true
 
   process-warning@4.0.1:
@@ -3476,6 +3487,8 @@ snapshots:
       safe-stable-stringify: 2.5.0
       sonic-boom: 4.2.0
       thread-stream: 3.1.0
+
+  prettier@3.5.3: {}
 
   process-warning@4.0.1: {}
 
