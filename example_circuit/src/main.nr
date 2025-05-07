@@ -31,13 +31,12 @@ fn main(
     let real_value = note.get_value();
     assert(real_value == expected_value, f"value mismatch: {real_value} != {expected_value}");
 
+    // storage proof
     let retrieved_note = RetrievedNote {
         note,
         contract_address: AztecAddress::from_field(contract_address),
         metadata: NoteMetadata::from(SettledNoteMetadata::new(note_nonce)),
     };
-
-    // storage proof
     let note_hash = compute_note_hash_for_nullify(retrieved_note, storage_slot);
     let computed_root = root_from_sibling_path(
         note_hash,
