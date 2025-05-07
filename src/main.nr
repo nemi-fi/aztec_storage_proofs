@@ -3,7 +3,7 @@ use aztec::macros::aztec;
 #[aztec]
 contract StorageProof {
     use aztec::{
-        macros::{functions::{private, utility}, storage::storage},
+        macros::{functions::{private, utility, view}, storage::storage},
         messages::logs::note::encode_and_encrypt_note,
         note::{
             note_getter::{get_notes, view_notes},
@@ -34,6 +34,7 @@ contract StorageProof {
     }
 
     #[private]
+    #[view]
     fn get_note2() -> pub Field {
         let mut options = NoteGetterOptions::new();
         options = options.set_limit(1);
