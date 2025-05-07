@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "tsx main.ts",
     "compile": "aztec-nargo compile && aztec codegen target -o target",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +21,7 @@
     "@aztec/stdlib": "0.85.0-alpha-testnet.9"
   },
   "devDependencies": {
-    "fake-indexeddb": "^6.0.0"
+    "fake-indexeddb": "^6.0.0",
+    "tsx": "^4.19.4"
   }
 }
