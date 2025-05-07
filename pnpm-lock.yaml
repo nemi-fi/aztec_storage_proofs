@@ -20,6 +20,9 @@ importers:
       '@aztec/noir-noir_js':
         specifier: 0.85.0-alpha-testnet.9
         version: 0.85.0-alpha-testnet.9
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
     devDependencies:
       '@aztec/accounts':
         specifier: 0.85.0-alpha-testnet.9
@@ -27,6 +30,9 @@ importers:
       '@aztec/pxe':
         specifier: 0.85.0-alpha-testnet.9
         version: 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       fake-indexeddb:
         specifier: ^6.0.0
         version: 6.0.0
@@ -599,6 +605,12 @@ packages:
 
   '@types/caseless@0.12.5':
     resolution: {integrity: sha512-hWtVTC2q7hc7xZ/RLbxapMvDMgUnDvKvMOpKal4DrMyfGBUfB1oKaZlIRr6mJL+If3bAP6sV/QneGzF6tJjZDg==}
+
+  '@types/lodash-es@4.17.12':
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
+
+  '@types/lodash@4.17.16':
+    resolution: {integrity: sha512-HX7Em5NYQAXKW+1T+FiuG27NGwzJfCX3s1GjOa7ujxZa52kjJLOr4FUxT+giF6Tgxv1e+/czV/iTtBw27WTU9g==}
 
   '@types/node@22.15.14':
     resolution: {integrity: sha512-BL1eyu/XWsFGTtDWOYULQEs4KR0qdtYfCxYAUYRoB7JP7h9ETYLgQTww6kH8Sj2C0pFGgrpM0XKv6/kbIzYJ1g==}
@@ -1229,6 +1241,9 @@ packages:
   lmdb@3.3.0:
     resolution: {integrity: sha512-MgJocUI6QEiSXQBFWLeyo1R7eQj8Rke5dlPxX0KFwli8/bsCxpM/KbXO5y0qmV/5llQ3wpneDWcTYxa+4vn8iQ==}
     hasBin: true
+
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
@@ -2560,6 +2575,12 @@ snapshots:
 
   '@types/caseless@0.12.5': {}
 
+  '@types/lodash-es@4.17.12':
+    dependencies:
+      '@types/lodash': 4.17.16
+
+  '@types/lodash@4.17.16': {}
+
   '@types/node@22.15.14':
     dependencies:
       undici-types: 6.21.0
@@ -3270,6 +3291,8 @@ snapshots:
       '@lmdb/lmdb-linux-x64': 3.3.0
       '@lmdb/lmdb-win32-arm64': 3.3.0
       '@lmdb/lmdb-win32-x64': 3.3.0
+
+  lodash-es@4.17.21: {}
 
   lodash.camelcase@4.3.0: {}
 
