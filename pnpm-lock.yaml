@@ -8,12 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@aztec/accounts':
-        specifier: 0.85.0-alpha-testnet.9
-        version: 0.85.0-alpha-testnet.9(zod@3.24.4)
       '@aztec/aztec.js':
         specifier: 0.85.0-alpha-testnet.9
-        version: 0.85.0-alpha-testnet.9(zod@3.24.4)
+        version: 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
       '@aztec/bb.js':
         specifier: 0.85.0-alpha-testnet.9
         version: 0.85.0-alpha-testnet.9
@@ -23,19 +20,22 @@ importers:
       '@aztec/noir-noir_js':
         specifier: 0.85.0-alpha-testnet.9
         version: 0.85.0-alpha-testnet.9
+    devDependencies:
+      '@aztec/accounts':
+        specifier: 0.85.0-alpha-testnet.9
+        version: 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
       '@aztec/pxe':
         specifier: 0.85.0-alpha-testnet.9
-        version: 0.85.0-alpha-testnet.9(zod@3.24.4)
-      '@aztec/stdlib':
-        specifier: 0.85.0-alpha-testnet.9
-        version: 0.85.0-alpha-testnet.9
-    devDependencies:
+        version: 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
       fake-indexeddb:
         specifier: ^6.0.0
         version: 6.0.0
       tsx:
         specifier: ^4.19.4
         version: 4.19.4
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
 packages:
 
@@ -1673,6 +1673,11 @@ packages:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
 
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   typical@4.0.0:
     resolution: {integrity: sha512-VAH4IvQ7BDFYglMd7BPRDfLgxZZX4O4TFcRDA6EN5X7erNJJq+McIEp8np9aVtxrCJ6qx4GTYVfOWNjcqwZgRw==}
     engines: {node: '>=8'}
@@ -1783,13 +1788,13 @@ snapshots:
 
   '@adraffy/ens-normalize@1.11.0': {}
 
-  '@aztec/accounts@0.85.0-alpha-testnet.9(zod@3.24.4)':
+  '@aztec/accounts@0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)':
     dependencies:
-      '@aztec/aztec.js': 0.85.0-alpha-testnet.9(zod@3.24.4)
-      '@aztec/entrypoints': 0.85.0-alpha-testnet.9
-      '@aztec/ethereum': 0.85.0-alpha-testnet.9
+      '@aztec/aztec.js': 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
+      '@aztec/entrypoints': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/ethereum': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/foundation': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       tslib: 2.8.1
     transitivePeerDependencies:
       - bufferutil
@@ -1800,18 +1805,18 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@aztec/aztec.js@0.85.0-alpha-testnet.9(zod@3.24.4)':
+  '@aztec/aztec.js@0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)':
     dependencies:
       '@aztec/constants': 0.85.0-alpha-testnet.9
-      '@aztec/entrypoints': 0.85.0-alpha-testnet.9
-      '@aztec/ethereum': 0.85.0-alpha-testnet.9
+      '@aztec/entrypoints': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/ethereum': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/foundation': 0.85.0-alpha-testnet.9
       '@aztec/l1-artifacts': 0.85.0-alpha-testnet.9
-      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       axios: 1.9.0
       tslib: 2.8.1
-      viem: 2.23.7(zod@3.24.4)
+      viem: 2.23.7(typescript@5.8.3)(zod@3.24.4)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -1821,18 +1826,18 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@aztec/bb-prover@0.85.0-alpha-testnet.9(zod@3.24.4)':
+  '@aztec/bb-prover@0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)':
     dependencies:
       '@aztec/bb.js': 0.85.0-alpha-testnet.9
       '@aztec/constants': 0.85.0-alpha-testnet.9
       '@aztec/foundation': 0.85.0-alpha-testnet.9
       '@aztec/noir-noirc_abi': 0.85.0-alpha-testnet.9
-      '@aztec/noir-protocol-circuits-types': 0.85.0-alpha-testnet.9
+      '@aztec/noir-protocol-circuits-types': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/noir-types': 0.85.0-alpha-testnet.9
-      '@aztec/simulator': 0.85.0-alpha-testnet.9(zod@3.24.4)
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
-      '@aztec/telemetry-client': 0.85.0-alpha-testnet.9(zod@3.24.4)
-      '@aztec/world-state': 0.85.0-alpha-testnet.9
+      '@aztec/simulator': 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/telemetry-client': 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
+      '@aztec/world-state': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       commander: 12.1.0
       pako: 2.1.0
       source-map-support: 0.5.21
@@ -1866,10 +1871,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@aztec/builder@0.85.0-alpha-testnet.9':
+  '@aztec/builder@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
       '@aztec/foundation': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       commander: 12.1.0
     transitivePeerDependencies:
       - bufferutil
@@ -1883,12 +1888,12 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@aztec/entrypoints@0.85.0-alpha-testnet.9':
+  '@aztec/entrypoints@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
       '@aztec/constants': 0.85.0-alpha-testnet.9
       '@aztec/foundation': 0.85.0-alpha-testnet.9
-      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       tslib: 2.8.1
     transitivePeerDependencies:
       - bufferutil
@@ -1898,7 +1903,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@aztec/ethereum@0.85.0-alpha-testnet.9':
+  '@aztec/ethereum@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
       '@aztec/blob-lib': 0.85.0-alpha-testnet.9
       '@aztec/foundation': 0.85.0-alpha-testnet.9
@@ -1906,7 +1911,7 @@ snapshots:
       '@viem/anvil': 0.0.10
       dotenv: 16.5.0
       tslib: 2.8.1
-      viem: 2.23.7(zod@3.24.4)
+      viem: 2.23.7(typescript@5.8.3)(zod@3.24.4)
       zod: 3.24.4
     transitivePeerDependencies:
       - bufferutil
@@ -1942,12 +1947,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@aztec/key-store@0.85.0-alpha-testnet.9':
+  '@aztec/key-store@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
       '@aztec/constants': 0.85.0-alpha-testnet.9
       '@aztec/foundation': 0.85.0-alpha-testnet.9
-      '@aztec/kv-store': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/kv-store': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       tslib: 2.8.1
     transitivePeerDependencies:
       - bufferutil
@@ -1957,12 +1962,12 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@aztec/kv-store@0.85.0-alpha-testnet.9':
+  '@aztec/kv-store@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
-      '@aztec/ethereum': 0.85.0-alpha-testnet.9
+      '@aztec/ethereum': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/foundation': 0.85.0-alpha-testnet.9
       '@aztec/native': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       idb: 8.0.3
       lmdb: 3.3.0
       msgpackr: 1.11.2
@@ -1980,11 +1985,11 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@aztec/merkle-tree@0.85.0-alpha-testnet.9':
+  '@aztec/merkle-tree@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
       '@aztec/foundation': 0.85.0-alpha-testnet.9
-      '@aztec/kv-store': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/kv-store': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       sha256: 0.2.0
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -2021,7 +2026,7 @@ snapshots:
     dependencies:
       '@aztec/noir-types': 0.85.0-alpha-testnet.9
 
-  '@aztec/noir-protocol-circuits-types@0.85.0-alpha-testnet.9':
+  '@aztec/noir-protocol-circuits-types@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
       '@aztec/blob-lib': 0.85.0-alpha-testnet.9
       '@aztec/constants': 0.85.0-alpha-testnet.9
@@ -2030,7 +2035,7 @@ snapshots:
       '@aztec/noir-noir_codegen': 0.85.0-alpha-testnet.9
       '@aztec/noir-noirc_abi': 0.85.0-alpha-testnet.9
       '@aztec/noir-types': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       change-case: 5.4.4
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -2043,11 +2048,11 @@ snapshots:
 
   '@aztec/noir-types@0.85.0-alpha-testnet.9': {}
 
-  '@aztec/protocol-contracts@0.85.0-alpha-testnet.9':
+  '@aztec/protocol-contracts@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
       '@aztec/constants': 0.85.0-alpha-testnet.9
       '@aztec/foundation': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       lodash.chunk: 4.2.0
       lodash.omit: 4.5.0
       tslib: 2.8.1
@@ -2059,27 +2064,27 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@aztec/pxe@0.85.0-alpha-testnet.9(zod@3.24.4)':
+  '@aztec/pxe@0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)':
     dependencies:
-      '@aztec/bb-prover': 0.85.0-alpha-testnet.9(zod@3.24.4)
+      '@aztec/bb-prover': 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
       '@aztec/bb.js': 0.85.0-alpha-testnet.9
-      '@aztec/builder': 0.85.0-alpha-testnet.9
+      '@aztec/builder': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/constants': 0.85.0-alpha-testnet.9
-      '@aztec/ethereum': 0.85.0-alpha-testnet.9
+      '@aztec/ethereum': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/foundation': 0.85.0-alpha-testnet.9
-      '@aztec/key-store': 0.85.0-alpha-testnet.9
-      '@aztec/kv-store': 0.85.0-alpha-testnet.9
-      '@aztec/noir-protocol-circuits-types': 0.85.0-alpha-testnet.9
+      '@aztec/key-store': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/kv-store': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/noir-protocol-circuits-types': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/noir-types': 0.85.0-alpha-testnet.9
-      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9
-      '@aztec/simulator': 0.85.0-alpha-testnet.9(zod@3.24.4)
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/simulator': 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       koa: 2.16.1
       koa-router: 12.0.1
       lodash.omit: 4.5.0
       sha3: 2.1.4
       tslib: 2.8.1
-      viem: 2.23.7(zod@3.24.4)
+      viem: 2.23.7(typescript@5.8.3)(zod@3.24.4)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -2089,18 +2094,18 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@aztec/simulator@0.85.0-alpha-testnet.9(zod@3.24.4)':
+  '@aztec/simulator@0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)':
     dependencies:
       '@aztec/constants': 0.85.0-alpha-testnet.9
       '@aztec/foundation': 0.85.0-alpha-testnet.9
       '@aztec/noir-acvm_js': 0.85.0-alpha-testnet.9
       '@aztec/noir-noirc_abi': 0.85.0-alpha-testnet.9
-      '@aztec/noir-protocol-circuits-types': 0.85.0-alpha-testnet.9
+      '@aztec/noir-protocol-circuits-types': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/noir-types': 0.85.0-alpha-testnet.9
-      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
-      '@aztec/telemetry-client': 0.85.0-alpha-testnet.9(zod@3.24.4)
-      '@aztec/world-state': 0.85.0-alpha-testnet.9
+      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/telemetry-client': 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
+      '@aztec/world-state': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       lodash.clonedeep: 4.5.0
       lodash.merge: 4.6.2
       tslib: 2.8.1
@@ -2113,12 +2118,12 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@aztec/stdlib@0.85.0-alpha-testnet.9':
+  '@aztec/stdlib@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
       '@aztec/bb.js': 0.85.0-alpha-testnet.9
       '@aztec/blob-lib': 0.85.0-alpha-testnet.9
       '@aztec/constants': 0.85.0-alpha-testnet.9
-      '@aztec/ethereum': 0.85.0-alpha-testnet.9
+      '@aztec/ethereum': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/foundation': 0.85.0-alpha-testnet.9
       '@aztec/noir-noirc_abi': 0.85.0-alpha-testnet.9
       '@google-cloud/storage': 7.16.0
@@ -2129,7 +2134,7 @@ snapshots:
       msgpackr: 1.11.2
       pako: 2.1.0
       tslib: 2.8.1
-      viem: 2.23.7(zod@3.24.4)
+      viem: 2.23.7(typescript@5.8.3)(zod@3.24.4)
       zod: 3.24.4
     transitivePeerDependencies:
       - bufferutil
@@ -2139,10 +2144,10 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@aztec/telemetry-client@0.85.0-alpha-testnet.9(zod@3.24.4)':
+  '@aztec/telemetry-client@0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)':
     dependencies:
       '@aztec/foundation': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/api-logs': 0.55.0
       '@opentelemetry/core': 1.30.1(@opentelemetry/api@1.9.0)
@@ -2158,7 +2163,7 @@ snapshots:
       '@opentelemetry/sdk-trace-node': 1.30.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.32.0
       prom-client: 15.1.3
-      viem: 2.23.7(zod@3.24.4)
+      viem: 2.23.7(typescript@5.8.3)(zod@3.24.4)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -2168,16 +2173,16 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@aztec/world-state@0.85.0-alpha-testnet.9':
+  '@aztec/world-state@0.85.0-alpha-testnet.9(typescript@5.8.3)':
     dependencies:
       '@aztec/constants': 0.85.0-alpha-testnet.9
       '@aztec/foundation': 0.85.0-alpha-testnet.9
-      '@aztec/kv-store': 0.85.0-alpha-testnet.9
-      '@aztec/merkle-tree': 0.85.0-alpha-testnet.9
+      '@aztec/kv-store': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/merkle-tree': 0.85.0-alpha-testnet.9(typescript@5.8.3)
       '@aztec/native': 0.85.0-alpha-testnet.9
-      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9
-      '@aztec/stdlib': 0.85.0-alpha-testnet.9
-      '@aztec/telemetry-client': 0.85.0-alpha-testnet.9(zod@3.24.4)
+      '@aztec/protocol-contracts': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/stdlib': 0.85.0-alpha-testnet.9(typescript@5.8.3)
+      '@aztec/telemetry-client': 0.85.0-alpha-testnet.9(typescript@5.8.3)(zod@3.24.4)
       tslib: 2.8.1
       zod: 3.24.4
     transitivePeerDependencies:
@@ -2579,8 +2584,9 @@ snapshots:
       - debug
       - utf-8-validate
 
-  abitype@1.0.8(zod@3.24.4):
+  abitype@1.0.8(typescript@5.8.3)(zod@3.24.4):
     optionalDependencies:
+      typescript: 5.8.3
       zod: 3.24.4
 
   abort-controller@3.0.0:
@@ -3377,15 +3383,17 @@ snapshots:
 
   ordered-binary@1.5.3: {}
 
-  ox@0.6.7(zod@3.24.4):
+  ox@0.6.7(typescript@5.8.3)(zod@3.24.4):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
       '@noble/curves': 1.9.0
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
-      abitype: 1.0.8(zod@3.24.4)
+      abitype: 1.0.8(typescript@5.8.3)(zod@3.24.4)
       eventemitter3: 5.0.1
+    optionalDependencies:
+      typescript: 5.8.3
     transitivePeerDependencies:
       - zod
 
@@ -3700,6 +3708,8 @@ snapshots:
       media-typer: 0.3.0
       mime-types: 2.1.35
 
+  typescript@5.8.3: {}
+
   typical@4.0.0: {}
 
   typical@5.2.0: {}
@@ -3720,16 +3730,18 @@ snapshots:
 
   vary@1.1.2: {}
 
-  viem@2.23.7(zod@3.24.4):
+  viem@2.23.7(typescript@5.8.3)(zod@3.24.4):
     dependencies:
       '@noble/curves': 1.8.1
       '@noble/hashes': 1.7.1
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
-      abitype: 1.0.8(zod@3.24.4)
+      abitype: 1.0.8(typescript@5.8.3)(zod@3.24.4)
       isows: 1.0.6(ws@8.18.0)
-      ox: 0.6.7(zod@3.24.4)
+      ox: 0.6.7(typescript@5.8.3)(zod@3.24.4)
       ws: 8.18.0
+    optionalDependencies:
+      typescript: 5.8.3
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
