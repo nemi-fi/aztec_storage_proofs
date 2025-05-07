@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "compile": "aztec-nargo compile && aztec codegen target -o target",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
