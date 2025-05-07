@@ -11,7 +11,7 @@ import { mapValues } from "lodash-es";
 
 export async function generateNoteInclusionProof(
   circuit: CompiledCircuit,
-  noteData: NoteData,
+  noteInclusionData: NoteInclusionData,
   realRoot: Fr,
   membershipWitness: Pick<
     MembershipWitness<number>,
@@ -22,12 +22,12 @@ export async function generateNoteInclusionProof(
   const backend = new UltraHonkBackend(circuit.bytecode);
 
   const NOTE_SETTLED_STAGE = 3n;
-  if (BigInt(noteData.note.metadata.stage) !== NOTE_SETTLED_STAGE) {
+  if (BigInt(noteInclusionData.note.metadata.stage) !== NOTE_SETTLED_STAGE) {
     throw new Error("note is not settled");
   }
-  const note_nonce = noteData.note.metadata.maybe_nonce.toString();
+  const note_nonce = noteInclusionData.note.metadata.maybe_nonce.toString();
 
-  const noteForNoir = mapValues(noteData.note.note, (v) => {
+  const noteForNoir = mapValues(noteInclusionData.note.note, (v) => {
     if (typeof v === "bigint") {
       return v.toString();
     }
@@ -39,13 +39,13 @@ export async function generateNoteInclusionProof(
   const { witness } = await noir.execute({
     note: noteForNoir,
     note_nonce,
-    contract_address: noteData.note.contract_address.toString(),
+    contract_address: noteInclusionData.note.contract_address.toString(),
     membership_witness: {
       leaf_index: membershipWitness.leafIndex.toString(),
       sibling_path: membershipWitness.siblingPath.map((p) => p.toString()),
     },
-    expected_value: noteData.note.note.value.toString(),
-    storage_slot: noteData.storage_slot.toString(),
+    expected_value: noteInclusionData.note.note.value.toString(),
+    storage_slot: noteInclusionData.storage_slot.toString(),
     real_note_hash_tree_root: realRoot.toString(),
   });
   console.log("witness", witness.length);
@@ -56,7 +56,7 @@ export async function generateNoteInclusionProof(
   return proof;
 }
 
-export interface NoteData {
+export interface NoteInclusionData {
   note: any;
   note_hash: bigint;
   storage_slot: bigint;

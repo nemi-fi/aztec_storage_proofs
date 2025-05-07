@@ -30,7 +30,7 @@ contract StorageProof {
 
     #[private]
     #[view]
-    fn get_note() -> pub storage_proofs::NoteData<UintNote> {
+    fn get_note() -> pub storage_proofs::NoteInclusionData<UintNote> {
         let mut options = NoteGetterOptions::new();
         options = options.set_limit(1);
         storage_proofs::get_note_inclusion_data(&mut context, storage.value, options)

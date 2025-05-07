@@ -6,7 +6,7 @@ import { getInitialTestAccountsManagers } from "@aztec/accounts/testing";
 import { createAztecNodeClient, Fr } from "@aztec/aztec.js";
 import { type CompiledCircuit } from "@aztec/noir-noir_js";
 import { createPXEService, getPXEServiceConfig } from "@aztec/pxe/client/lazy";
-import { generateNoteInclusionProof, getNoteHashTreeMembershipWitness, type NoteData } from "./lib.js";
+import { generateNoteInclusionProof, getNoteHashTreeMembershipWitness, type NoteInclusionData } from "./lib.js";
 import { StorageProofContract } from "./target/StorageProof.js";
 import example_circuit from "./target_circuits/example_circuit.json" with { type: "json" };
 
@@ -24,9 +24,9 @@ async function main() {
 
   // const contract = await StorageProofContract.at(AztecAddress.fromString(), alice)
 
-  const noteData = (await contract.methods.get_note().simulate()) as NoteData;
+  const noteInclusionData = (await contract.methods.get_note().simulate()) as NoteInclusionData;
 
-  const noteHash = new Fr(noteData.note_hash);
+  const noteHash = new Fr(noteInclusionData.note_hash);
 
   const blockNumber = receipt.blockNumber!;
   const membershipWitness = await getNoteHashTreeMembershipWitness(node, blockNumber, noteHash);
@@ -39,7 +39,7 @@ async function main() {
 
   const proof = await generateNoteInclusionProof(
     example_circuit as CompiledCircuit,
-    noteData,
+    noteInclusionData,
     realRoot,
     membershipWitness,
   );

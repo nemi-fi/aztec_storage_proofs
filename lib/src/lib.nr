@@ -48,7 +48,7 @@ pub fn get_note_inclusion_data<NOTE, let N: u32>(
     context: &mut PrivateContext,
     storage_var: impl Storage<_>,
     options: NoteGetterOptions<_, _, _, _>,
-) -> NoteData<NOTE>
+) -> NoteInclusionData<NOTE>
 where
     NOTE: NoteType + NoteHash + Packable<N> + Eq,
 {
@@ -57,16 +57,16 @@ where
         get_notes(context, storage_slot, options);
     let note = retrieved_notes.get(0);
     let note_hash = compute_note_hash_for_nullify(note, storage_slot);
-    NoteData { note, note_hash, storage_slot }
+    NoteInclusionData { note, note_hash, storage_slot }
 }
 
-pub struct NoteData<Note> {
+pub struct NoteInclusionData<Note> {
     pub note: RetrievedNote<Note>,
     pub note_hash: Field,
     pub storage_slot: Field,
 }
 
-impl<Note, let N: u32> Serialize<N + 3 + 2> for NoteData<Note>
+impl<Note, let N: u32> Serialize<N + 3 + 2> for NoteInclusionData<Note>
 where
     Note: Serialize<N>,
 {
