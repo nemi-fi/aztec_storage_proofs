@@ -5,13 +5,7 @@ contract StorageProof {
     use aztec::{
         macros::{functions::{private, utility, view}, storage::storage},
         messages::logs::note::encode_and_encrypt_note,
-        note::{
-            note_getter::get_notes, retrieved_note::RetrievedNote,
-            utils::compute_note_hash_for_nullify,
-        },
         prelude::{NoteGetterOptions, PrivateMutable},
-        protocol_types::traits::Serialize,
-        state_vars::storage::Storage as _,
     };
 
     use uint_note::uint_note::UintNote;
@@ -36,32 +30,10 @@ contract StorageProof {
 
     #[private]
     #[view]
-    fn get_note() -> pub NoteData<UintNote> {
-        let storage_slot = storage.value.get_storage_slot();
-
+    fn get_note() -> pub storage_proofs::NoteData<UintNote> {
         let mut options = NoteGetterOptions::new();
         options = options.set_limit(1);
-        let (retrieved_notes, _): (BoundedVec<RetrievedNote<UintNote>, _>, _) =
-            get_notes(&mut context, storage_slot, options);
-        let note = retrieved_notes.get(0);
-        let note_hash = compute_note_hash_for_nullify(note, storage_slot);
-        NoteData { note, note_hash, storage_slot }
+        storage_proofs::get_note_inclusion_data(&mut context, storage.value, options)
     }
 
-    pub struct NoteData<Note> {
-        pub note: RetrievedNote<Note>,
-        pub note_hash: Field,
-        pub storage_slot: Field,
-    }
-
-    impl<Note, let N: u32> Serialize<N + 3 + 2> for NoteData<Note>
-    where
-        Note: Serialize<N>,
-    {
-        fn serialize(self) -> [Field; N + 3 + 2] {
-            let a = self.note.serialize();
-            let b = a.concat([self.note_hash, self.storage_slot]);
-            b
-        }
-    }
 }

@@ -1,15 +1,18 @@
 use aztec::{
     note::{
-        note_interface::NoteHash,
+        note_getter::get_notes,
+        note_interface::{NoteHash, NoteType},
         note_metadata::{NoteMetadata, SettledNoteMetadata},
         retrieved_note::RetrievedNote,
         utils::compute_note_hash_for_nullify,
     },
-    prelude::AztecAddress,
+    prelude::{AztecAddress, NoteGetterOptions, PrivateContext},
     protocol_types::{
         constants::NOTE_HASH_TREE_HEIGHT,
         merkle_tree::{membership::MembershipWitness, root::root_from_sibling_path},
+        traits::{Packable, Serialize},
     },
+    state_vars::storage::Storage,
 };
 
 pub fn assert_note_inclusion<NOTE>(
@@ -39,4 +42,37 @@ where
         computed_root == note_hash_tree_root,
         f"root mismatch: {computed_root} != {note_hash_tree_root}",
     );
+}
+
+pub fn get_note_inclusion_data<NOTE, let N: u32>(
+    context: &mut PrivateContext,
+    storage_var: impl Storage<_>,
+    options: NoteGetterOptions<_, _, _, _>,
+) -> NoteData<NOTE>
+where
+    NOTE: NoteType + NoteHash + Packable<N> + Eq,
+{
+    let storage_slot = storage_var.get_storage_slot();
+    let (retrieved_notes, _): (BoundedVec<RetrievedNote<NOTE>, _>, _) =
+        get_notes(context, storage_slot, options);
+    let note = retrieved_notes.get(0);
+    let note_hash = compute_note_hash_for_nullify(note, storage_slot);
+    NoteData { note, note_hash, storage_slot }
+}
+
+pub struct NoteData<Note> {
+    pub note: RetrievedNote<Note>,
+    pub note_hash: Field,
+    pub storage_slot: Field,
+}
+
+impl<Note, let N: u32> Serialize<N + 3 + 2> for NoteData<Note>
+where
+    Note: Serialize<N>,
+{
+    fn serialize(self) -> [Field; N + 3 + 2] {
+        let a = self.note.serialize();
+        let b = a.concat([self.note_hash, self.storage_slot]);
+        b
+    }
 }
