@@ -14,7 +14,13 @@ importers:
       '@aztec/aztec.js':
         specifier: 0.85.0-alpha-testnet.9
         version: 0.85.0-alpha-testnet.9(zod@3.24.4)
+      '@aztec/bb.js':
+        specifier: 0.85.0-alpha-testnet.9
+        version: 0.85.0-alpha-testnet.9
       '@aztec/foundation':
+        specifier: 0.85.0-alpha-testnet.9
+        version: 0.85.0-alpha-testnet.9
+      '@aztec/noir-noir_js':
         specifier: 0.85.0-alpha-testnet.9
         version: 0.85.0-alpha-testnet.9
       '@aztec/pxe':
@@ -103,6 +109,9 @@ packages:
   '@aztec/noir-noir_codegen@0.85.0-alpha-testnet.9':
     resolution: {integrity: sha512-X1xbzB+NhKSbrzST4TCj7nO7ZbEKeK00SiXhMmt55DzFOW7OtNmxb0puGe/+uGef2feVSz0e4R9HaiU18uG7KQ==}
     hasBin: true
+
+  '@aztec/noir-noir_js@0.85.0-alpha-testnet.9':
+    resolution: {integrity: sha512-bs6xtAggNXziZN3t7o2C3egFXPkXyINx/BKJQmbPrDsRbR7qCq86bFDm5bjBFuw2J39JpO3scO31wwv1mB5lMw==}
 
   '@aztec/noir-noirc_abi@0.85.0-alpha-testnet.9':
     resolution: {integrity: sha512-wVt/n9+X6v3eLJrzzdh6KhogndKGj20u/XxotNgLbxcuAsasrPPRUG0RRPr44UeZ4Qx10CtZSPPecUuP8J/0qA==}
@@ -2001,6 +2010,12 @@ snapshots:
       '@aztec/noir-types': 0.85.0-alpha-testnet.9
       glob: 10.4.5
       ts-command-line-args: 2.5.1
+
+  '@aztec/noir-noir_js@0.85.0-alpha-testnet.9':
+    dependencies:
+      '@aztec/noir-acvm_js': 0.85.0-alpha-testnet.9
+      '@aztec/noir-noirc_abi': 0.85.0-alpha-testnet.9
+      '@aztec/noir-types': 0.85.0-alpha-testnet.9
 
   '@aztec/noir-noirc_abi@0.85.0-alpha-testnet.9':
     dependencies:

@@ -10,6 +10,7 @@ contract StorageProof {
             utils::compute_note_hash_for_nullify,
         },
         prelude::{NoteGetterOptions, PrivateMutable},
+        protocol_types::traits::Serialize,
     };
 
     use uint_note::uint_note::UintNote;
@@ -34,15 +35,32 @@ contract StorageProof {
 
     #[private]
     #[view]
-    fn get_note() -> pub Field {
-        let storage_var = storage.value;
+    fn get_note() -> pub NoteData<UintNote> {
+        let storage_slot = storage.value.storage_slot;
 
         let mut options = NoteGetterOptions::new();
         options = options.set_limit(1);
         let (retrieved_notes, _): (BoundedVec<RetrievedNote<UintNote>, _>, _) =
-            get_notes(&mut context, storage_var.storage_slot, options);
+            get_notes(&mut context, storage_slot, options);
         let note = retrieved_notes.get(0);
-        let note_hash = compute_note_hash_for_nullify(note, storage_var.storage_slot);
-        note_hash
+        let note_hash = compute_note_hash_for_nullify(note, storage_slot);
+        NoteData { note, note_hash, storage_slot }
+    }
+
+    pub struct NoteData<Note> {
+        pub note: RetrievedNote<Note>,
+        pub note_hash: Field,
+        pub storage_slot: Field,
+    }
+
+    impl<Note, let N: u32> Serialize<N + 3 + 2> for NoteData<Note>
+    where
+        Note: Serialize<N>,
+    {
+        fn serialize(self) -> [Field; N + 3 + 2] {
+            let a = self.note.serialize();
+            let b = a.concat([self.note_hash, self.storage_slot]);
+            b
+        }
     }
 }

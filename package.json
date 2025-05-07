@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsx main.ts",
-    "compile": "aztec-nargo compile && aztec codegen target -o target",
+    "compile": "aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec codegen target -o target",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,7 +16,9 @@
   "dependencies": {
     "@aztec/accounts": "0.85.0-alpha-testnet.9",
     "@aztec/aztec.js": "0.85.0-alpha-testnet.9",
+    "@aztec/bb.js": "0.85.0-alpha-testnet.9",
     "@aztec/foundation": "0.85.0-alpha-testnet.9",
+    "@aztec/noir-noir_js": "0.85.0-alpha-testnet.9",
     "@aztec/pxe": "0.85.0-alpha-testnet.9",
     "@aztec/stdlib": "0.85.0-alpha-testnet.9"
   },

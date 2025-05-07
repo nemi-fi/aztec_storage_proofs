@@ -2,4 +2,5 @@ node_modules
 .env
 .DS_Store
 target
+target_circuits
 codegenCache.json
