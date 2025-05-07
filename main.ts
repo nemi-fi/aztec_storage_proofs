@@ -3,14 +3,10 @@ import "fake-indexeddb/auto";
 globalThis.self = globalThis; // needed by pxe https://github.com/AztecProtocol/aztec-packages/issues/14135
 
 import { getInitialTestAccountsManagers } from "@aztec/accounts/testing";
-import { createAztecNodeClient, Fr, MerkleTreeId, PXE } from "@aztec/aztec.js";
+import { createAztecNodeClient, Fr, MerkleTreeId } from "@aztec/aztec.js";
 import { poseidon2Hash } from "@aztec/foundation/crypto";
 import { computeRootFromSiblingPath } from "@aztec/foundation/trees";
-import {
-  createPXEService,
-  getPXEServiceConfig,
-  type PXEOracleInterface,
-} from "@aztec/pxe/client/lazy";
+import { createPXEService, getPXEServiceConfig } from "@aztec/pxe/client/lazy";
 import { StorageProofContract } from "./target/StorageProof.js";
 
 async function main() {
@@ -32,12 +28,6 @@ async function main() {
   );
 
   const blockNumber = receipt.blockNumber!;
-  const membershipWitness = await getMembershipWitness(
-    pxe,
-    blockNumber,
-    noteHash,
-  );
-
   const [indexData] = await node.findLeavesIndexes(
     blockNumber,
     MerkleTreeId.NOTE_HASH_TREE,
@@ -46,13 +36,18 @@ async function main() {
   if (indexData == null) {
     throw new Error(`note hash not found: ${noteHash}`);
   }
-  const index = indexData.data;
+  const noteHashIndex = indexData.data;
+
+  const membershipWitness = await node.getNoteHashSiblingPath(
+    blockNumber,
+    noteHashIndex,
+  );
 
   const computedRoot = Fr.fromBuffer(
     await computeRootFromSiblingPath(
       noteHash.toBuffer(),
-      membershipWitness.map((x) => x.toBuffer()),
-      Number(index),
+      membershipWitness.toBufferArray(),
+      Number(noteHashIndex),
       async (l, r) => (await poseidon2Hash([l, r])).toBuffer(),
     ),
   );
@@ -62,7 +57,7 @@ async function main() {
   }
   const realRoot = blockHeader.state.partial.noteHashTree.root;
   console.log("membershipWitness", membershipWitness);
-  console.log("index", index);
+  console.log("index", noteHashIndex);
   console.log("note", noteHash);
   console.log("computed root", computedRoot);
   console.log("real root", realRoot);
@@ -70,22 +65,6 @@ async function main() {
   if (!realRoot.equals(computedRoot)) {
     throw new Error("root mismatch");
   }
-}
-
-async function getMembershipWitness(
-  pxe: PXE,
-  blockNumber: number,
-  noteHash: Fr,
-) {
-  // TODO: remove type cast
-  const pxe2: PXE & Pick<PXEOracleInterface, "getMembershipWitness"> = (
-    pxe as any
-  ).simulator.executionDataProvider;
-  return await pxe2.getMembershipWitness(
-    blockNumber,
-    MerkleTreeId.NOTE_HASH_TREE,
-    noteHash,
-  );
 }
 
 main();
