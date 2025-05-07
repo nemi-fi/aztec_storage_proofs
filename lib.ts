@@ -1,16 +1,14 @@
 import {
   AztecAddress,
+  EthAddress,
   Fr,
   MerkleTreeId,
   type AztecNode,
 } from "@aztec/aztec.js";
-import { UltraHonkBackend } from "@aztec/bb.js";
 import type { MembershipWitness } from "@aztec/foundation/trees";
-import { Noir, type CompiledCircuit } from "@aztec/noir-noir_js";
 import { mapValues } from "lodash-es";
 
-export async function generateNoteInclusionProof(
-  circuit: CompiledCircuit,
+export async function getNoteInclusionInputForNoir(
   node: AztecNode,
   noteInclusionData: NoteInclusionData,
 ) {
@@ -29,10 +27,7 @@ export async function generateNoteInclusionProof(
   }
   const realRoot = blockHeader.state.partial.noteHashTree.root;
 
-  // prove with noir & bb
-  const noir = new Noir(circuit);
-  const backend = new UltraHonkBackend(circuit.bytecode);
-
+  // format data for Noir
   const NOTE_SETTLED_STAGE = 3n;
   if (BigInt(noteInclusionData.note.metadata.stage) !== NOTE_SETTLED_STAGE) {
     throw new Error("note is not settled");
@@ -46,10 +41,13 @@ export async function generateNoteInclusionProof(
     if (AztecAddress.isAddress(v.toString())) {
       return { inner: v.toString() };
     }
+    if (EthAddress.isAddress(v.toString())) {
+      return { inner: v.toString() };
+    }
     return v;
   });
 
-  const { witness } = await noir.execute({
+  return {
     note: noteForNoir,
     note_nonce,
     contract_address: noteInclusionData.note.contract_address.toString(),
@@ -57,16 +55,9 @@ export async function generateNoteInclusionProof(
       leaf_index: membershipWitness.leafIndex.toString(),
       sibling_path: membershipWitness.siblingPath.map((p) => p.toString()),
     },
-    expected_value: noteInclusionData.note.note.value.toString(),
     storage_slot: noteInclusionData.storage_slot.toString(),
     real_note_hash_tree_root: realRoot.toString(),
-  });
-  console.log("witness", witness.length);
-
-  console.time("generateProof");
-  const proof = await backend.generateProof(witness);
-  console.timeEnd("generateProof");
-  return proof;
+  };
 }
 
 export interface NoteInclusionData {

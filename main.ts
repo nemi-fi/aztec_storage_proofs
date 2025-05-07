@@ -4,9 +4,10 @@ globalThis.self = globalThis; // needed by pxe https://github.com/AztecProtocol/
 
 import { getInitialTestAccountsManagers } from "@aztec/accounts/testing";
 import { createAztecNodeClient } from "@aztec/aztec.js";
-import { type CompiledCircuit } from "@aztec/noir-noir_js";
+import { UltraHonkBackend } from "@aztec/bb.js";
+import { Noir, type CompiledCircuit, type InputMap } from "@aztec/noir-noir_js";
 import { createPXEService, getPXEServiceConfig } from "@aztec/pxe/client/lazy";
-import { generateNoteInclusionProof, type NoteInclusionData } from "./lib.js";
+import { getNoteInclusionInputForNoir, type NoteInclusionData } from "./lib.js";
 import { StorageProofContract } from "./target/StorageProof.js";
 import example_circuit from "./target_circuits/example_circuit.json" with { type: "json" };
 
@@ -28,12 +29,24 @@ async function main() {
     .get_note()
     .simulate()) as NoteInclusionData;
 
-  const proof = await generateNoteInclusionProof(
-    example_circuit as CompiledCircuit,
-    node,
-    noteInclusionData,
-  );
+  const input = await getNoteInclusionInputForNoir(node, noteInclusionData);
+  const proof = await generateProof(example_circuit as CompiledCircuit, {
+    ...input,
+    expected_value: noteInclusionData.note.note.value.toString(),
+  });
   console.log("proof", proof.proof.length);
+}
+
+async function generateProof(circuit: CompiledCircuit, input: InputMap) {
+  const noir = new Noir(circuit);
+  const backend = new UltraHonkBackend(circuit.bytecode);
+
+  const { witness } = await noir.execute(input);
+
+  console.time("generateProof");
+  const proof = await backend.generateProof(witness);
+  console.timeEnd("generateProof");
+  return proof;
 }
 
 // async function verifyInJs() {

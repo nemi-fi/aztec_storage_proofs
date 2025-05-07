@@ -12,14 +12,13 @@
   "packageManager": "pnpm@10.9.0",
   "dependencies": {
     "@aztec/aztec.js": "0.85.0-alpha-testnet.9",
-    "@aztec/bb.js": "0.85.0-alpha-testnet.9",
     "@aztec/foundation": "0.85.0-alpha-testnet.9",
-    "@aztec/noir-noir_js": "0.85.0-alpha-testnet.9",
-    "@aztec/stdlib": "0.85.0-alpha-testnet.9",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@aztec/accounts": "0.85.0-alpha-testnet.9",
+    "@aztec/bb.js": "0.85.0-alpha-testnet.9",
+    "@aztec/noir-noir_js": "0.85.0-alpha-testnet.9",
     "@aztec/pxe": "0.85.0-alpha-testnet.9",
     "@types/lodash-es": "^4.17.12",
     "fake-indexeddb": "^6.0.0",
