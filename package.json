@@ -9,9 +9,6 @@
     "compile": "aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec codegen target -o target",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "packageManager": "pnpm@10.9.0",
   "dependencies": {
     "@aztec/accounts": "0.85.0-alpha-testnet.9",

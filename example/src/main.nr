@@ -11,6 +11,7 @@ contract StorageProof {
         },
         prelude::{NoteGetterOptions, PrivateMutable},
         protocol_types::traits::Serialize,
+        state_vars::storage::Storage as _,
     };
 
     use uint_note::uint_note::UintNote;
@@ -36,7 +37,7 @@ contract StorageProof {
     #[private]
     #[view]
     fn get_note() -> pub NoteData<UintNote> {
-        let storage_slot = storage.value.storage_slot;
+        let storage_slot = storage.value.get_storage_slot();
 
         let mut options = NoteGetterOptions::new();
         options = options.set_limit(1);
