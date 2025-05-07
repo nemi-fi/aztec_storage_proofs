@@ -66,7 +66,7 @@ export interface NoteInclusionData {
   storage_slot: bigint;
 }
 
-export async function getNoteHashTreeMembershipWitness(
+async function getNoteHashTreeMembershipWitness(
   node: AztecNode,
   blockNumber: number,
   noteHash: Fr,
