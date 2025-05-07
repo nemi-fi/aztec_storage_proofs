@@ -4,11 +4,9 @@ globalThis.self = globalThis; // needed by pxe https://github.com/AztecProtocol/
 
 import { getInitialTestAccountsManagers } from "@aztec/accounts/testing";
 import { createAztecNodeClient, Fr, MerkleTreeId } from "@aztec/aztec.js";
-import { poseidon2Hash } from "@aztec/foundation/crypto";
-import { computeRootFromSiblingPath } from "@aztec/foundation/trees";
 import { type CompiledCircuit } from "@aztec/noir-noir_js";
 import { createPXEService, getPXEServiceConfig } from "@aztec/pxe/client/lazy";
-import { generateNoteInclusionProof } from "./lib.js";
+import { generateNoteInclusionProof, type NoteData } from "./lib.js";
 import { StorageProofContract } from "./target/StorageProof.js";
 import example_circuit from "./target_circuits/example_circuit.json" with { type: "json" };
 
@@ -26,11 +24,7 @@ async function main() {
 
   // const contract = await StorageProofContract.at(AztecAddress.fromString(), alice)
 
-  const getNoteResult = (await contract.methods.get_note().simulate()) as {
-    note: unknown;
-    note_hash: bigint;
-    storage_slot: bigint;
-  };
+  const getNoteResult = (await contract.methods.get_note().simulate()) as NoteData;
 
   const noteHash = new Fr(getNoteResult.note_hash);
 
@@ -56,29 +50,10 @@ async function main() {
   }
   const realRoot = blockHeader.state.partial.noteHashTree.root;
 
-  const computedRoot = Fr.fromBuffer(
-    await computeRootFromSiblingPath(
-      noteHash.toBuffer(),
-      siblingPath.toBufferArray(),
-      Number(noteHashIndex),
-      async (l, r) => (await poseidon2Hash([l, r])).toBuffer(),
-    ),
-  );
-
-  console.log("membershipWitness", siblingPath);
-  console.log("getNoteResult", getNoteResult);
-  console.log("index", noteHashIndex);
-  console.log("note", noteHash);
-  console.log("computed root", computedRoot);
-  console.log("real root", realRoot);
-
-  if (!realRoot.equals(computedRoot)) {
-    throw new Error("root mismatch");
-  }
 
   const proof = await generateNoteInclusionProof(
     example_circuit as CompiledCircuit,
-    getNoteResult.note,
+    getNoteResult,
     realRoot,
     {
       leafIndex: noteHashIndex,
@@ -86,5 +61,27 @@ async function main() {
     },
   );
 }
+
+// async function verifyInJs() {
+  // const computedRoot = Fr.fromBuffer(
+  //   await computeRootFromSiblingPath(
+  //     noteHash.toBuffer(),
+  //     siblingPath.toBufferArray(),
+  //     Number(noteHashIndex),
+  //     async (l, r) => (await poseidon2Hash([l, r])).toBuffer(),
+  //   ),
+  // );
+
+  // console.log("membershipWitness", siblingPath);
+  // console.log("getNoteResult", getNoteResult);
+  // console.log("index", noteHashIndex);
+  // console.log("note", noteHash);
+  // console.log("computed root", computedRoot);
+  // console.log("real root", realRoot);
+
+  // if (!realRoot.equals(computedRoot)) {
+  //   throw new Error("root mismatch");
+  // }
+// }
 
 main();
