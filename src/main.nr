@@ -6,11 +6,10 @@ contract StorageProof {
         macros::{functions::{private, utility, view}, storage::storage},
         messages::logs::note::encode_and_encrypt_note,
         note::{
-            note_getter::{get_notes, view_notes},
-            retrieved_note::RetrievedNote,
+            note_getter::get_notes, retrieved_note::RetrievedNote,
             utils::compute_note_hash_for_nullify,
         },
-        prelude::{NoteGetterOptions, NoteViewerOptions, PrivateMutable},
+        prelude::{NoteGetterOptions, PrivateMutable},
     };
 
     use uint_note::uint_note::UintNote;
@@ -42,7 +41,6 @@ contract StorageProof {
             get_notes(&mut context, storage.value.storage_slot, options);
         let note = retrieved_notes.get(0);
         let note_hash = compute_note_hash_for_nullify(note, storage.value.storage_slot);
-        // (note.note.get_value(), note_hash)
         note_hash
     }
 }
