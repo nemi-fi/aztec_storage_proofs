@@ -1,5 +1,6 @@
 use aztec::{
     note::{
+        note_interface::NoteHash,
         note_metadata::{NoteMetadata, SettledNoteMetadata},
         retrieved_note::RetrievedNote,
         utils::compute_note_hash_for_nullify,
@@ -31,10 +32,31 @@ fn main(
     let real_value = note.get_value();
     assert(real_value == expected_value, f"value mismatch: {real_value} != {expected_value}");
 
+    assert_verify_storage_proof(
+        note,
+        note_nonce,
+        membership_witness,
+        AztecAddress::from_field(contract_address),
+        storage_slot,
+        real_note_hash_tree_root,
+    );
+}
+
+fn assert_verify_storage_proof<NOTE>(
+    note: NOTE,
+    note_nonce: Field,
+    membership_witness: MembershipWitness<NOTE_HASH_TREE_HEIGHT>,
+    contract_address: AztecAddress,
+    storage_slot: Field,
+    real_note_hash_tree_root: Field,
+)
+where
+    NOTE: NoteHash,
+{
     // storage proof
     let retrieved_note = RetrievedNote {
         note,
-        contract_address: AztecAddress::from_field(contract_address),
+        contract_address,
         metadata: NoteMetadata::from(SettledNoteMetadata::new(note_nonce)),
     };
     let note_hash = compute_note_hash_for_nullify(retrieved_note, storage_slot);
