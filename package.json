@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsx main.ts",
-    "compile": "aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec codegen target -o target",
+    "compile": "rm -rf target_circuits && rm -rf target && aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec codegen target -o target",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "packageManager": "pnpm@10.9.0",
