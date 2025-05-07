@@ -35,7 +35,7 @@ contract StorageProof {
 
     #[private]
     #[view]
-    fn get_note2() -> pub Field {
+    fn get_note() -> pub Field {
         let mut options = NoteGetterOptions::new();
         options = options.set_limit(1);
         let (retrieved_notes, _): (BoundedVec<RetrievedNote<UintNote>, _>, _) =
@@ -44,14 +44,5 @@ contract StorageProof {
         let note_hash = compute_note_hash_for_nullify(note, storage.value.storage_slot);
         // (note.note.get_value(), note_hash)
         note_hash
-    }
-
-    #[utility]
-    unconstrained fn get_note() -> UintNote {
-        let mut options: NoteViewerOptions<UintNote, _> = NoteViewerOptions::new();
-        options = options.set_limit(1);
-        let notes = view_notes(storage.value.storage_slot, options);
-        let note = notes.get(0);
-        note
     }
 }

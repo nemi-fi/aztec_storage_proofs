@@ -1,7 +1,6 @@
 import "fake-indexeddb/auto";
 // @ts-ignore
 globalThis.self = globalThis;
-process.env.LOG_LEVEL = "warn";
 
 import { getInitialTestAccountsManagers } from "@aztec/accounts/testing";
 import { createAztecNodeClient, Fr, MerkleTreeId, PXE } from "@aztec/aztec.js";
@@ -26,7 +25,7 @@ async function main() {
 
   // const contract = await StorageProofContract.at(AztecAddress.fromString(), alice)
 
-  const noteHash = (await contract.methods.get_note2().simulate()) as bigint;
+  const noteHash = (await contract.methods.get_note().simulate()) as bigint;
 
   const membershipWitness = await getMembershipWitness(
     pxe,
@@ -34,13 +33,7 @@ async function main() {
     new Fr(noteHash),
   );
   console.log("membershipWitness", membershipWitness);
-
-  // const notes = await pxe.getNotes({
-  //   contractAddress: contract.address,
-  //   txHash: receipt.txHash,
-  // });
   console.log("note", noteHash);
-  // console.log("notes", notes);
 }
 
 async function getMembershipWitness(
