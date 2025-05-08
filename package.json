@@ -4,9 +4,10 @@
   "version": "0.0.1",
   "main": "lib.ts",
   "scripts": {
-    "start": "tsx main.ts",
     "compile": "rm -rf target_circuits && rm -rf target && aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec codegen target -o target",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm compile && tsc",
+    "test": "vitest run",
+    "prepublishOnly": "pnpm build && pnpm test"
   },
   "packageManager": "pnpm@10.9.0",
   "dependencies": {
