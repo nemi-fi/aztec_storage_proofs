@@ -1,5 +1,7 @@
 # Aztec Storage Proofs
 
+Prove Aztec note inclusion in plain Noir. Generate verifiable proofs for verification in JS or Solidity.
+
 Supports exactly Aztec 0.85.0-alpha-testnet.9
 
 Install in JS:
