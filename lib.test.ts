@@ -11,7 +11,10 @@ import {
   getPXEServiceConfig,
 } from "@aztec/pxe/client/bundle";
 import { test } from "vitest";
-import { getNoteInclusionInputForNoir, type NoteInclusionData } from "./lib.js";
+import {
+  getNoteInclusionInputForNoir,
+  type NoteInclusionData,
+} from "./js/index.js";
 import { StorageProofContract } from "./target/StorageProof.js";
 import example_circuit from "./target_circuits/example_circuit.json" with { type: "json" };
 

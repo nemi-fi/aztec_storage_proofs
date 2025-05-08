@@ -11,6 +11,7 @@
     "verbatimModuleSyntax": true,
 
     // lib
+    "outDir": "./dist",
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -19,5 +20,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noUncheckedIndexedAccess": true
-  }
+  },
+  "include": ["js"]
 }

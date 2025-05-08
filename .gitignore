@@ -4,3 +4,4 @@ node_modules
 target
 target_circuits
 codegenCache.json
+dist
