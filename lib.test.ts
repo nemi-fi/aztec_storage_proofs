@@ -6,12 +6,16 @@ import { getInitialTestAccountsManagers } from "@aztec/accounts/testing";
 import { createAztecNodeClient } from "@aztec/aztec.js";
 import { UltraHonkBackend } from "@aztec/bb.js";
 import { Noir, type CompiledCircuit, type InputMap } from "@aztec/noir-noir_js";
-import { createPXEService, getPXEServiceConfig } from "@aztec/pxe/client/lazy";
+import {
+  createPXEService,
+  getPXEServiceConfig,
+} from "@aztec/pxe/client/bundle";
+import { test } from "vitest";
 import { getNoteInclusionInputForNoir, type NoteInclusionData } from "./lib.js";
 import { StorageProofContract } from "./target/StorageProof.js";
 import example_circuit from "./target_circuits/example_circuit.json" with { type: "json" };
 
-async function main() {
+test("flow", async () => {
   const node = createAztecNodeClient("http://localhost:8080");
   const config = getPXEServiceConfig();
   config.proverEnabled = false;
@@ -35,7 +39,7 @@ async function main() {
     expected_value: noteInclusionData.note.note.value.toString(),
   });
   console.log("proof", proof.proof.length);
-}
+});
 
 async function generateProof(circuit: CompiledCircuit, input: InputMap) {
   const noir = new Noir(circuit);
@@ -70,5 +74,3 @@ async function generateProof(circuit: CompiledCircuit, input: InputMap) {
 //   throw new Error("root mismatch");
 // }
 // }
-
-main();
