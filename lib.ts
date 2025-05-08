@@ -25,14 +25,19 @@ export async function getNoteInclusionInputForNoir(
   if (!blockHeader) {
     throw new Error(`block header for block ${blockNumber} not found`);
   }
-  const realRoot = blockHeader.state.partial.noteHashTree.root;
+  const note_hash_tree_root =
+    blockHeader.state.partial.noteHashTree.root.toString();
 
   // format data for Noir
   const NOTE_SETTLED_STAGE = 3n;
   if (BigInt(noteInclusionData.note.metadata.stage) !== NOTE_SETTLED_STAGE) {
     throw new Error("note is not settled");
   }
-  const note_nonce = noteInclusionData.note.metadata.maybe_nonce.toString();
+  const note_nonce: string =
+    noteInclusionData.note.metadata.maybe_nonce.toString();
+
+  const contract_address: string =
+    noteInclusionData.note.contract_address.toString();
 
   const noteForNoir = mapValues(noteInclusionData.note.note, (v) => {
     if (typeof v === "bigint") {
@@ -46,17 +51,16 @@ export async function getNoteInclusionInputForNoir(
     }
     return v;
   });
-
   return {
     note: noteForNoir,
     note_nonce,
-    contract_address: noteInclusionData.note.contract_address.toString(),
+    contract_address,
     membership_witness: {
       leaf_index: membershipWitness.leafIndex.toString(),
       sibling_path: membershipWitness.siblingPath.map((p) => p.toString()),
     },
     storage_slot: noteInclusionData.storage_slot.toString(),
-    real_note_hash_tree_root: realRoot.toString(),
+    note_hash_tree_root,
   };
 }
 

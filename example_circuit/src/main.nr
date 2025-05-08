@@ -20,7 +20,7 @@ fn main(
     // The expected value of the note.
     expected_value: pub u128,
     // The real root of the note hash tree.
-    real_note_hash_tree_root: pub Field,
+    note_hash_tree_root: pub Field,
 ) {
     let real_value = note.get_value();
     assert(real_value == expected_value, f"value mismatch: {real_value} != {expected_value}");
@@ -31,6 +31,6 @@ fn main(
         membership_witness,
         AztecAddress::from_field(contract_address),
         storage_slot,
-        real_note_hash_tree_root,
+        note_hash_tree_root,
     );
 }
