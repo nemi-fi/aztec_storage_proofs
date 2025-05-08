@@ -11,10 +11,7 @@ import {
   getPXEServiceConfig,
 } from "@aztec/pxe/client/bundle";
 import { test } from "vitest";
-import {
-  getNoteInclusionInputForNoir,
-  type NoteInclusionData,
-} from "./js/index.js";
+import { NoteInclusionData } from "./js/index.js";
 import { StorageProofContract } from "./target/StorageProof.js";
 import example_circuit from "./target_circuits/example_circuit.json" with { type: "json" };
 
@@ -32,11 +29,11 @@ test("flow", async () => {
 
   // const contract = await StorageProofContract.at(AztecAddress.fromString(), alice)
 
-  const noteInclusionData = (await contract.methods
-    .get_note()
-    .simulate()) as NoteInclusionData;
+  const noteInclusionData = new NoteInclusionData(
+    await contract.methods.get_note().simulate(),
+  );
 
-  const input = await getNoteInclusionInputForNoir(node, noteInclusionData);
+  const input = await noteInclusionData.toNoirInput(node);
   const proof = await generateProof(example_circuit as CompiledCircuit, {
     ...input,
     expected_value: noteInclusionData.note.note.value.toString(),
@@ -55,25 +52,3 @@ async function generateProof(circuit: CompiledCircuit, input: InputMap) {
   console.timeEnd("generateProof");
   return proof;
 }
-
-// async function verifyInJs() {
-// const computedRoot = Fr.fromBuffer(
-//   await computeRootFromSiblingPath(
-//     noteHash.toBuffer(),
-//     siblingPath.toBufferArray(),
-//     Number(noteHashIndex),
-//     async (l, r) => (await poseidon2Hash([l, r])).toBuffer(),
-//   ),
-// );
-
-// console.log("membershipWitness", siblingPath);
-// console.log("getNoteResult", getNoteResult);
-// console.log("index", noteHashIndex);
-// console.log("note", noteHash);
-// console.log("computed root", computedRoot);
-// console.log("real root", realRoot);
-
-// if (!realRoot.equals(computedRoot)) {
-//   throw new Error("root mismatch");
-// }
-// }

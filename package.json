@@ -28,6 +28,7 @@
   "dependencies": {
     "@aztec/aztec.js": "0.85.0-alpha-testnet.9",
     "@aztec/foundation": "0.85.0-alpha-testnet.9",
+    "@aztec/stdlib": "0.85.0-alpha-testnet.9",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
