@@ -27,8 +27,6 @@ test("flow", async () => {
   console.log("deployed at", contract.address.toString());
   await contract.methods.set_value(100).send().wait();
 
-  // const contract = await StorageProofContract.at(AztecAddress.fromString(), alice)
-
   const noteInclusionData = new NoteInclusionData(
     await contract.methods.get_note().simulate(),
   );
