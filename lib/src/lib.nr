@@ -57,22 +57,21 @@ where
         get_notes(context, storage_slot, options);
     let note = retrieved_notes.get(0);
     let note_hash = compute_note_hash_for_nullify(note, storage_slot);
-    NoteInclusionData { note, note_hash, storage_slot }
+    NoteInclusionData { note, note_hash }
 }
 
 pub struct NoteInclusionData<Note> {
     pub note: RetrievedNote<Note>,
     pub note_hash: Field,
-    pub storage_slot: Field,
 }
 
-impl<Note, let N: u32> Serialize<N + 3 + 2> for NoteInclusionData<Note>
+impl<Note, let N: u32> Serialize<N + 3 + 1> for NoteInclusionData<Note>
 where
     Note: Serialize<N>,
 {
-    fn serialize(self) -> [Field; N + 3 + 2] {
+    fn serialize(self) -> [Field; N + 3 + 1] {
         let a = self.note.serialize();
-        let b = a.concat([self.note_hash, self.storage_slot]);
+        let b = a.concat([self.note_hash]);
         b
     }
 }

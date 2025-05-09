@@ -28,12 +28,13 @@ test("flow", async () => {
   await contract.methods.set_value(100).send().wait();
 
   const noteInclusionData = new NoteInclusionData(
-    await contract.methods.get_note().simulate(),
+    await contract.methods.get_note(alice.getAddress()).simulate(),
   );
 
   const input = await noteInclusionData.toNoirInput(node);
   const proof = await generateProof(example_circuit as CompiledCircuit, {
     ...input,
+    map_storage_slot: 1, // position in `struct Storage` (1-based indexing)
     expected_value: noteInclusionData.note.note.value.toString(),
   });
   console.log("proof", proof.proof.length);

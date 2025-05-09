@@ -12,14 +12,10 @@ import { mapValues } from "lodash-es";
 export class NoteInclusionData {
   readonly note: any;
   readonly note_hash: bigint;
-  readonly storage_slot: bigint;
 
-  constructor(
-    fields: Pick<NoteInclusionData, "note" | "note_hash" | "storage_slot">,
-  ) {
+  constructor(fields: Pick<NoteInclusionData, "note" | "note_hash">) {
     this.note = fields.note;
     this.note_hash = fields.note_hash;
-    this.storage_slot = fields.storage_slot;
   }
 
   async toNoirInput(node: AztecNode, blockNumber: L2BlockNumber = "latest") {
@@ -70,7 +66,6 @@ export class NoteInclusionData {
         leaf_index: membershipWitness.leafIndex.toString(),
         sibling_path: membershipWitness.siblingPath.map((p) => p.toString()),
       },
-      storage_slot: this.storage_slot.toString(),
       note_hash_tree_root,
     };
   }
