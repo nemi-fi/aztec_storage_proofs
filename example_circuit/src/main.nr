@@ -13,8 +13,8 @@ fn main(
     note: UintNote,
     // The membership witness for the note hash in the note hash tree.
     membership_witness: MembershipWitness<NOTE_HASH_TREE_HEIGHT>,
-    // The storage slot of the note within the contract. Can leak info, so has to be private.
-    map_storage_slot: Field,
+    // The storage slot of the mapping in the contract.
+    map_storage_slot: pub Field,
     // The nonce of the note for the note hash.
     note_nonce: Field,
     // The Aztec smart contract address.
