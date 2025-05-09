@@ -7,7 +7,7 @@ Supports exactly Aztec 0.85.0-alpha-testnet.9
 Install in JS:
 
 ```sh
-npm add @nemi-fi/aztec-storage-proofs@0.2.0 -E
+npm add @nemi-fi/aztec-storage-proofs@0.2.0
 ```
 
 Install in Noir (Nargo.toml):
