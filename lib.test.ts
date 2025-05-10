@@ -10,7 +10,7 @@ import {
   createPXEService,
   getPXEServiceConfig,
 } from "@aztec/pxe/client/bundle";
-import { test } from "vitest";
+import { expect, test } from "vitest";
 import { NoteInclusionData } from "./js/index.js";
 import { StorageProofContract } from "./target/StorageProof.js";
 import example_circuit from "./target_circuits/example_circuit.json" with { type: "json" };
@@ -25,19 +25,28 @@ test("flow", async () => {
 
   const contract = await StorageProofContract.deploy(alice).send().deployed();
   console.log("deployed at", contract.address.toString());
-  await contract.methods.set_value(100).send().wait();
 
-  const noteInclusionData = new NoteInclusionData(
-    await contract.methods.get_note(alice.getAddress()).simulate(),
-  );
+  await setValueAndTestProof(100);
+  await setValueAndTestProof(200);
 
-  const input = await noteInclusionData.toNoirInput(node);
-  const proof = await generateProof(example_circuit as CompiledCircuit, {
-    ...input,
-    map_storage_slot: 1, // position in `struct Storage` (1-based indexing)
-    expected_value: noteInclusionData.note.note.value.toString(),
-  });
-  console.log("proof", proof.proof.length);
+  async function setValueAndTestProof(value: number) {
+    await contract.methods.set_value(value).send().wait();
+
+    const noteInclusionData = new NoteInclusionData(
+      await contract.methods.get_note(alice.getAddress()).simulate(),
+    );
+
+    const input = await noteInclusionData.toNoirInput(node);
+
+    expect(BigInt(noteInclusionData.note.note.value)).toBe(BigInt(value)); // sanity check
+
+    const proof = await generateProof(example_circuit as CompiledCircuit, {
+      ...input,
+      map_storage_slot: 1, // position in `struct Storage` (1-based indexing)
+      expected_value: noteInclusionData.note.note.value.toString(),
+    });
+    console.log("proof", proof.proof.length);
+  }
 });
 
 async function generateProof(circuit: CompiledCircuit, input: InputMap) {
