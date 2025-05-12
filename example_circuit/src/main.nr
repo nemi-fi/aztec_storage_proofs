@@ -13,12 +13,12 @@ fn main(
     note: UintNote,
     // The membership witness for the note hash in the note hash tree.
     membership_witness: MembershipWitness<NOTE_HASH_TREE_HEIGHT>,
-    // The storage slot of the mapping in the contract.
-    map_storage_slot: pub Field,
     // The nonce of the note for the note hash.
     note_nonce: Field,
     // The Aztec smart contract address.
     contract_address: pub Field,
+    // The storage slot of the mapping in the contract.
+    map_storage_slot: pub Field,
     // The expected value of the note.
     expected_value: pub u128,
     // The real root of the note hash tree.
