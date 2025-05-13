@@ -23,7 +23,7 @@ fn main(
     expected_value: pub u128,
     // The real root of the note hash tree.
     note_hash_tree_root: pub Field,
-) {
+) -> pub Field {
     let real_value = note.get_value();
     assert(real_value == expected_value, f"value mismatch: {real_value} != {expected_value}");
 
@@ -36,4 +36,9 @@ fn main(
         storage_slot,
         note_hash_tree_root,
     );
+
+    // this is incorrect. We need to use a DETERMINISTIC secret value that the `note.owner` is derived from.
+    // In Aztec.nr it's called an `nsk_app` but we can't compute it here because we don't have the `nsk_m`.
+    let nullifier = nodash::poseidon2([note.owner.to_field()]);
+    nullifier
 }
