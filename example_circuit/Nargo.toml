@@ -3,6 +3,6 @@ name = "example_circuit"
 type = "bin"
 
 [dependencies]
-aztec = { git = "https://github.com/AztecProtocol/aztec-packages/", tag = "v0.85.0-alpha-testnet.9", directory = "noir-projects/aztec-nr/aztec" }
-uint_note = { git = "https://github.com/AztecProtocol/aztec-packages/", tag = "v0.85.0-alpha-testnet.9", directory = "noir-projects/aztec-nr/uint-note" }
+aztec = { git = "https://github.com/AztecProtocol/aztec-packages/", tag = "v0.87.0", directory = "noir-projects/aztec-nr/aztec" }
+uint_note = { git = "https://github.com/AztecProtocol/aztec-packages/", tag = "v0.87.0", directory = "noir-projects/aztec-nr/uint-note" }
 storage_proofs = { path = "../lib" }

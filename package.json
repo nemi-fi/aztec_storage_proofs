@@ -1,7 +1,7 @@
 {
   "name": "@nemi-fi/aztec-storage-proofs",
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "files": [
     "js",
     "dist"
@@ -19,23 +19,23 @@
     }
   },
   "scripts": {
-    "compile": "rm -rf target_circuits && rm -rf target && VERSION=0.85.0-alpha-testnet.9 aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && VERSION=0.85.0-alpha-testnet.9 aztec codegen target -o target",
+    "compile": "rm -rf target_circuits && rm -rf target && aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec codegen target -o target",
     "build": "rm -rf dist && tsc",
     "test": "vitest run",
     "prepublishOnly": "pnpm build && pnpm test"
   },
-  "packageManager": "pnpm@10.9.0",
+  "packageManager": "pnpm@10.11.0",
   "dependencies": {
-    "@aztec/aztec.js": "^0.85.0-alpha-testnet.9",
-    "@aztec/foundation": "^0.85.0-alpha-testnet.9",
-    "@aztec/stdlib": "^0.85.0-alpha-testnet.9",
+    "@aztec/aztec.js": "^0.87.0",
+    "@aztec/foundation": "^0.87.0",
+    "@aztec/stdlib": "^0.87.0",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@aztec/accounts": "^0.85.0-alpha-testnet.9",
-    "@aztec/bb.js": "^0.85.0-alpha-testnet.9",
-    "@aztec/noir-noir_js": "^0.85.0-alpha-testnet.9",
-    "@aztec/pxe": "^0.85.0-alpha-testnet.9",
+    "@aztec/accounts": "^0.87.0",
+    "@aztec/bb.js": "^0.87.0",
+    "@aztec/noir-noir_js": "^0.87.0",
+    "@aztec/pxe": "^0.87.0",
     "@types/lodash-es": "^4.17.12",
     "fake-indexeddb": "^6.0.0",
     "prettier": "^3.5.3",
