@@ -44,17 +44,17 @@ where
     );
 }
 
-pub fn get_note_inclusion_data<NOTE, let N: u32>(
+pub fn get_note_inclusion_data<NOTE, let N: u32, PREPROCESSOR_ARGS, FILTER_ARGS>(
     context: &mut PrivateContext,
     storage_var: impl Storage<_>,
-    options: NoteGetterOptions<_, _, _, _>,
+    options: NoteGetterOptions<NOTE, _, PREPROCESSOR_ARGS, FILTER_ARGS>,
 ) -> NoteInclusionData<NOTE>
 where
     NOTE: NoteType + NoteHash + Packable<N> + Eq,
 {
     let storage_slot = storage_var.get_storage_slot();
     let (retrieved_notes, _): (BoundedVec<RetrievedNote<NOTE>, _>, _) =
-        get_notes(context, storage_slot, options);
+        get_notes::<NOTE, _, PREPROCESSOR_ARGS, FILTER_ARGS>(context, storage_slot, options);
     let note = retrieved_notes.get(0);
     let note_hash = compute_note_hash_for_nullify(note, storage_slot);
     NoteInclusionData { note, note_hash }

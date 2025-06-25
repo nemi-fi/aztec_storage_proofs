@@ -2,7 +2,7 @@
 
 Prove Aztec note inclusion in plain Noir. Generate verifiable proofs for verification in JS or Solidity.
 
-**Supports exactly Aztec 0.87.2**
+**Supports exactly Aztec 1.0.0**
 
 Install in JS:
 
