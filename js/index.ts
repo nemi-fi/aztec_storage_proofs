@@ -42,7 +42,7 @@ export class NoteInclusionData {
     if (BigInt(this.note.metadata.stage) !== NOTE_SETTLED_STAGE) {
       throw new Error("note is not settled");
     }
-    const note_nonce: string = this.note.metadata.maybe_nonce.toString();
+    const note_nonce: string = this.note.metadata.maybe_note_nonce.toString();
 
     const contract_address: string = this.note.contract_address.toString();
 
