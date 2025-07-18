@@ -19,7 +19,7 @@
     }
   },
   "scripts": {
-    "compile": "rm -rf target_circuits && rm -rf target && aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec codegen target -o target",
+    "compile": "rm -rf target_circuits && rm -rf target && aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec codegen target -o target --force",
     "build": "rm -rf dist && tsc",
     "test": "vitest run",
     "prepublishOnly": "pnpm build && pnpm test"
