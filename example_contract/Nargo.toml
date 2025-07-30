@@ -3,6 +3,6 @@ name = "example_contract"
 type = "contract"
 
 [dependencies]
-aztec = { git = "https://github.com/AztecProtocol/aztec-packages/", tag = "v1.0.0", directory = "noir-projects/aztec-nr/aztec" }
-uint_note = { git = "https://github.com/AztecProtocol/aztec-packages/", tag = "v1.0.0", directory = "noir-projects/aztec-nr/uint-note" }
+aztec = { git = "https://github.com/AztecProtocol/aztec-packages/", tag = "v1.1.2", directory = "noir-projects/aztec-nr/aztec" }
+uint_note = { git = "https://github.com/AztecProtocol/aztec-packages/", tag = "v1.1.2", directory = "noir-projects/aztec-nr/uint-note" }
 storage_proofs = { path = "../lib" }
