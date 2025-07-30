@@ -26,16 +26,16 @@
   },
   "packageManager": "pnpm@10.11.0",
   "dependencies": {
-    "@aztec/aztec.js": "^1.0.0",
-    "@aztec/foundation": "^1.0.0",
-    "@aztec/stdlib": "^1.0.0",
+    "@aztec/aztec.js": "^1.1.2",
+    "@aztec/foundation": "^1.1.2",
+    "@aztec/stdlib": "^1.1.2",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@aztec/accounts": "1.0.0",
-    "@aztec/bb.js": "1.0.0",
-    "@aztec/noir-noir_js": "1.0.0",
-    "@aztec/pxe": "1.0.0",
+    "@aztec/accounts": "1.1.2",
+    "@aztec/bb.js": "1.1.2",
+    "@aztec/noir-noir_js": "1.1.2",
+    "@aztec/pxe": "1.1.2",
     "@types/lodash-es": "^4.17.12",
     "fake-indexeddb": "^6.0.0",
     "prettier": "^3.5.3",
