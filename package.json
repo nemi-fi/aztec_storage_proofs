@@ -26,9 +26,9 @@
   },
   "packageManager": "pnpm@10.11.0",
   "dependencies": {
-    "@aztec/aztec.js": "^1.1.2",
-    "@aztec/foundation": "^1.1.2",
-    "@aztec/stdlib": "^1.1.2",
+    "@aztec/aztec.js": "1.1.2",
+    "@aztec/foundation": "1.1.2",
+    "@aztec/stdlib": "1.1.2",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
