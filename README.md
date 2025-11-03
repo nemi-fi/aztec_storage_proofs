@@ -14,7 +14,7 @@ Install in Noir (Nargo.toml):
 
 ```toml
 [dependencies]
-storage_proofs = { git = "https://github.com/nemi-fi/aztec_storage_proofs", tag = "v2.0.3", directory = "lib" }
+storage_proofs = { git = "https://github.com/nemi-fi/aztec_storage_proofs", tag = "v3.0.0-devnet.2", directory = "lib" }
 ```
 
 For an end to end example, see [lib.test.ts](lib.test.ts).

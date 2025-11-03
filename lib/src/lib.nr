@@ -6,7 +6,7 @@ use aztec::{
         note_interface::{NoteHash, NoteType},
         note_metadata::{NoteMetadata, SettledNoteMetadata},
         retrieved_note::RetrievedNote,
-        utils::compute_note_hash_for_nullify,
+        utils::compute_note_hash_for_nullification,
     },
     protocol_types::{
         address::AztecAddress,
@@ -34,7 +34,7 @@ where
         contract_address,
         metadata: NoteMetadata::from(SettledNoteMetadata::new(note_nonce)),
     };
-    let note_hash = compute_note_hash_for_nullify(retrieved_note, storage_slot);
+    let note_hash = compute_note_hash_for_nullification(retrieved_note, storage_slot);
     let computed_root = root_from_sibling_path(
         note_hash,
         membership_witness.leaf_index,
@@ -58,7 +58,7 @@ where
     let (retrieved_notes, _): (BoundedVec<RetrievedNote<NOTE>, _>, _) =
         get_notes::<NOTE, _, PREPROCESSOR_ARGS, FILTER_ARGS>(context, storage_slot, options);
     let note = retrieved_notes.get(0);
-    let note_hash = compute_note_hash_for_nullify(note, storage_slot);
+    let note_hash = compute_note_hash_for_nullification(note, storage_slot);
     NoteInclusionData { note, note_hash }
 }
 

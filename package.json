@@ -19,7 +19,7 @@
     }
   },
   "scripts": {
-    "compile": "rm -rf target_circuits && aztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && aztec-postprocess-contract && aztec codegen target -o target --force",
+    "compile": "rm -rf target_circuits && gaztec-nargo compile && mkdir -p target_circuits && mv target/*_circuit.json target_circuits && gaztec-postprocess-contract && gaztec codegen target -o target --force",
     "build": "rm -rf dist && tsc",
     "test": "vitest run",
     "prepublishOnly": "pnpm build && pnpm test"
@@ -38,6 +38,7 @@
     "@aztec/pxe": "2.0.3",
     "@types/lodash-es": "^4.17.12",
     "fake-indexeddb": "^6.0.0",
+    "gaztec": "^0.0.6",
     "prettier": "^3.5.3",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
