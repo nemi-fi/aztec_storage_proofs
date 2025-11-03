@@ -2,12 +2,12 @@
 
 Prove Aztec note inclusion in plain Noir. Generate verifiable proofs for verification in JS or Solidity.
 
-**Supports exactly Aztec 2.0.3**
+**Supports exactly Aztec 3.0.0-devnet.2**
 
 Install in JS:
 
 ```sh
-npm add @nemi-fi/aztec-storage-proofs@2.0.3
+npm add @nemi-fi/aztec-storage-proofs@3.0.0-devnet.2
 ```
 
 Install in Noir (Nargo.toml):

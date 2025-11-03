@@ -1,7 +1,7 @@
 {
   "name": "@nemi-fi/aztec-storage-proofs",
   "type": "module",
-  "version": "2.0.3",
+  "version": "3.0.0-devnet.2",
   "files": [
     "js",
     "dist"
@@ -26,16 +26,16 @@
   },
   "packageManager": "pnpm@10.11.0",
   "dependencies": {
-    "@aztec/aztec.js": "2.0.3",
-    "@aztec/foundation": "2.0.3",
-    "@aztec/stdlib": "2.0.3",
+    "@aztec/aztec.js": "3.0.0-devnet.2",
+    "@aztec/foundation": "3.0.0-devnet.2",
+    "@aztec/stdlib": "3.0.0-devnet.2",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@aztec/accounts": "2.0.3",
-    "@aztec/bb.js": "2.0.3",
-    "@aztec/noir-noir_js": "2.0.3",
-    "@aztec/pxe": "2.0.3",
+    "@aztec/accounts": "3.0.0-devnet.2",
+    "@aztec/bb.js": "3.0.0-devnet.2",
+    "@aztec/noir-noir_js": "3.0.0-devnet.2",
+    "@aztec/pxe": "3.0.0-devnet.2",
     "@types/lodash-es": "^4.17.12",
     "fake-indexeddb": "^6.0.0",
     "gaztec": "^0.0.6",
