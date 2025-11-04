@@ -36,6 +36,7 @@
     "@aztec/bb.js": "3.0.0-devnet.2",
     "@aztec/noir-noir_js": "3.0.0-devnet.2",
     "@aztec/pxe": "3.0.0-devnet.2",
+    "@aztec/test-wallet": "3.0.0-devnet.2",
     "@types/lodash-es": "^4.17.12",
     "fake-indexeddb": "^6.0.0",
     "gaztec": "^0.0.6",

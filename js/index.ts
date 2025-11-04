@@ -1,10 +1,7 @@
-import {
-  AztecAddress,
-  EthAddress,
-  Fr,
-  MerkleTreeId,
-  type AztecNode,
-} from "@aztec/aztec.js";
+import { AztecAddress, EthAddress } from "@aztec/aztec.js/addresses";
+import { Fr } from "@aztec/aztec.js/fields";
+import type { AztecNode } from "@aztec/aztec.js/node";
+import { MerkleTreeId } from "@aztec/aztec.js/trees";
 import type { MembershipWitness } from "@aztec/foundation/trees";
 import type { L2BlockNumber } from "@aztec/stdlib/block";
 import { mapValues } from "lodash-es";

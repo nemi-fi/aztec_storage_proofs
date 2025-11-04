@@ -2,14 +2,12 @@ import "fake-indexeddb/auto";
 // @ts-ignore
 globalThis.self = globalThis; // needed by pxe https://github.com/AztecProtocol/aztec-packages/issues/14135
 
-import { getInitialTestAccountsManagers } from "@aztec/accounts/testing";
-import { createAztecNodeClient } from "@aztec/aztec.js";
+import { getInitialTestAccountsData } from "@aztec/accounts/testing";
+import { createAztecNodeClient } from "@aztec/aztec.js/node";
 import { UltraHonkBackend } from "@aztec/bb.js";
 import { Noir, type CompiledCircuit, type InputMap } from "@aztec/noir-noir_js";
-import {
-  createPXEService,
-  getPXEServiceConfig,
-} from "@aztec/pxe/client/bundle";
+import { getPXEConfig } from "@aztec/pxe/client/bundle";
+import { TestWallet } from "@aztec/test-wallet/server";
 import { expect, test } from "vitest";
 import { NoteInclusionData } from "./js/index.js";
 import { StorageProofContract } from "./target/StorageProof.js";
@@ -17,13 +15,15 @@ import example_circuit from "./target_circuits/example_circuit.json" with { type
 
 test("flow", async () => {
   const node = createAztecNodeClient("http://localhost:8080");
-  const config = getPXEServiceConfig();
+  const config = getPXEConfig();
   config.proverEnabled = false;
-  const pxe = await createPXEService(node, config);
-  const accounts = await getInitialTestAccountsManagers(pxe);
-  const alice = await accounts[0]!.register();
+  const accounts = await getInitialTestAccountsData();
+  const wallet = await TestWallet.create(node);
+  const alice = await (
+    await wallet.createSchnorrAccount(accounts[0]!.secret, accounts[0]!.salt)
+  ).getAccount();
 
-  const contract = await StorageProofContract.deploy(alice)
+  const contract = await StorageProofContract.deploy(wallet)
     .send({ from: alice.getAddress() })
     .deployed();
   console.log("deployed at", contract.address.toString());

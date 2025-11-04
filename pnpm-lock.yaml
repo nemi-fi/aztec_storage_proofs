@@ -33,6 +33,9 @@ importers:
       '@aztec/pxe':
         specifier: 3.0.0-devnet.2
         version: 3.0.0-devnet.2(typescript@5.8.3)(zod@3.24.4)
+      '@aztec/test-wallet':
+        specifier: 3.0.0-devnet.2
+        version: 3.0.0-devnet.2(typescript@5.8.3)(zod@3.24.4)
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -279,6 +282,10 @@ packages:
   '@aztec/noir-acvm_js@3.0.0-devnet.2':
     resolution: {integrity: sha512-CyKCYq32w0gWN14Vc7SwAAsjMqKmQD5G2ssy6MW0UNJ5mVXusUTdq90LfFZFIAh139tLcpxG2lOOd7jYhzNZ/A==}
 
+  '@aztec/noir-contracts.js@3.0.0-devnet.2':
+    resolution: {integrity: sha512-GDItJIjO5AGuWKbS8mAbgEI+PrT1ZWafvf7BY+OXKjLAdRZ8lzLx9ftug9/iic6S1v3wHKC1R79YJj30YxQpLw==}
+    engines: {node: '>=20.10'}
+
   '@aztec/noir-noir_codegen@3.0.0-devnet.2':
     resolution: {integrity: sha512-4H4QGvqXpyk6pV7khu88D2WDDkXUn6SxVMA6686qvJCK11I17g49f1Kg6+94XKWTAQ+BWFJgm0Ff3k7S3gppkA==}
     hasBin: true
@@ -315,6 +322,10 @@ packages:
 
   '@aztec/telemetry-client@3.0.0-devnet.2':
     resolution: {integrity: sha512-SAIg2ANvVzUDWbP00+2lN35dBRdJQPMcQ8QZ2M+aQBMKvRbyClgVy9800UVGRplPiiirClkN57kkwW+TWX9rrQ==}
+    engines: {node: '>=20.10'}
+
+  '@aztec/test-wallet@3.0.0-devnet.2':
+    resolution: {integrity: sha512-IhAqs9b1gZebciUCqNyU89SvvqfHLJYocoPk53cHGKvz3X5vDUbwx/GwQhePhzanyh2R4onVMfD9qX5BVn1xGg==}
     engines: {node: '>=20.10'}
 
   '@aztec/world-state@3.0.0-devnet.2':
@@ -2533,18 +2544,6 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  ws@8.18.2:
-    resolution: {integrity: sha512-DMricUmwGZUVr++AEAe2uiVM7UoO9MAVZMDu05UQOaUII0lp+zOzLLU4Xqh/JvTqklB1T4uELaaPBKyjE1r4fQ==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-
   ws@8.18.3:
     resolution: {integrity: sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==}
     engines: {node: '>=10.0.0'}
@@ -3267,6 +3266,19 @@ snapshots:
 
   '@aztec/noir-acvm_js@3.0.0-devnet.2': {}
 
+  '@aztec/noir-contracts.js@3.0.0-devnet.2(typescript@5.8.3)':
+    dependencies:
+      '@aztec/aztec.js': 3.0.0-devnet.2(typescript@5.8.3)
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - aws-crt
+      - bufferutil
+      - debug
+      - encoding
+      - supports-color
+      - typescript
+      - utf-8-validate
+
   '@aztec/noir-noir_codegen@3.0.0-devnet.2':
     dependencies:
       '@aztec/noir-types': 3.0.0-devnet.2
@@ -3432,6 +3444,25 @@ snapshots:
       '@opentelemetry/semantic-conventions': 1.32.0
       prom-client: 15.1.3
       viem: '@spalladino/viem@2.38.2-eip7594.0(typescript@5.8.3)(zod@3.24.4)'
+    transitivePeerDependencies:
+      - aws-crt
+      - bufferutil
+      - debug
+      - encoding
+      - supports-color
+      - typescript
+      - utf-8-validate
+      - zod
+
+  '@aztec/test-wallet@3.0.0-devnet.2(typescript@5.8.3)(zod@3.24.4)':
+    dependencies:
+      '@aztec/accounts': 3.0.0-devnet.2(typescript@5.8.3)
+      '@aztec/aztec.js': 3.0.0-devnet.2(typescript@5.8.3)
+      '@aztec/entrypoints': 3.0.0-devnet.2(typescript@5.8.3)
+      '@aztec/foundation': 3.0.0-devnet.2
+      '@aztec/noir-contracts.js': 3.0.0-devnet.2(typescript@5.8.3)
+      '@aztec/pxe': 3.0.0-devnet.2(typescript@5.8.3)(zod@3.24.4)
+      '@aztec/stdlib': 3.0.0-devnet.2(typescript@5.8.3)
     transitivePeerDependencies:
       - aws-crt
       - bufferutil
@@ -4305,7 +4336,7 @@ snapshots:
       execa: 7.2.0
       get-port: 6.1.2
       http-proxy: 1.18.1
-      ws: 8.18.2
+      ws: 8.18.3
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -5705,8 +5736,6 @@ snapshots:
       strip-ansi: 7.1.0
 
   wrappy@1.0.2: {}
-
-  ws@8.18.2: {}
 
   ws@8.18.3: {}
 
