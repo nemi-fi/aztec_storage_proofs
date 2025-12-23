@@ -2,8 +2,9 @@ import { AztecAddress, EthAddress } from "@aztec/aztec.js/addresses";
 import { Fr } from "@aztec/aztec.js/fields";
 import type { AztecNode } from "@aztec/aztec.js/node";
 import { MerkleTreeId } from "@aztec/aztec.js/trees";
+import type { BlockNumber } from "@aztec/foundation/branded-types";
 import type { MembershipWitness } from "@aztec/foundation/trees";
-import type { L2BlockNumber } from "@aztec/stdlib/block";
+import type { BlockParameter } from "@aztec/stdlib/block";
 import { mapValues } from "lodash-es";
 
 export class NoteInclusionData {
@@ -15,7 +16,7 @@ export class NoteInclusionData {
     this.note_hash = fields.note_hash;
   }
 
-  async toNoirInput(node: AztecNode, blockNumber: L2BlockNumber = "latest") {
+  async toNoirInput(node: AztecNode, blockNumber: BlockParameter = "latest") {
     if (blockNumber === "latest") {
       blockNumber = await node.getBlockNumber();
     }
@@ -59,6 +60,7 @@ export class NoteInclusionData {
       note: noteForNoir,
       note_nonce,
       contract_address,
+      randomness: this.note.randomness.toString(),
       membership_witness: {
         leaf_index: membershipWitness.leafIndex.toString(),
         sibling_path: membershipWitness.siblingPath.map((p) => p.toString()),
@@ -85,7 +87,7 @@ export class NoteInclusionData {
 
 async function getNoteHashTreeMembershipWitness(
   node: AztecNode,
-  blockNumber: number,
+  blockNumber: BlockNumber,
   noteHash: Fr,
 ): Promise<Pick<MembershipWitness<number>, "leafIndex" | "siblingPath">> {
   const [indexData] = await node.findLeavesIndexes(
